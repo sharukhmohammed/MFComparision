@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Space-->
+    <dimen name="space_largest">48dp</dimen>
+    <dimen name="space_larger">32dp</dimen>
+    <dimen name="space_large">24dp</dimen>
+    <dimen name="space_base">16dp</dimen>
+    <dimen name="space_medium">12dp</dimen>
+    <dimen name="space_small">8dp</dimen>
+    <dimen name="space_smaller">4dp</dimen>
+    <dimen name="space_smallest">2dp</dimen>
+    <dimen name="space_zero">0dp</dimen>
+
+    <!--Margin-->
+    <dimen name="item_top_margin">8dp</dimen>
+    <dimen name="date_margin">12dp</dimen>
+
+    <!--Text-->
+    <dimen name="text_headline">24sp</dimen>
+    <dimen name="text_header">22sp</dimen>
+    <dimen name="text_largest">20sp</dimen>
+    <dimen name="text_larger">18sp</dimen>
+    <dimen name="text_large">16sp</dimen>
+    <dimen name="text_regular">14sp</dimen>
+    <dimen name="text_small">12sp</dimen>
+    <dimen name="text_smaller">10sp</dimen>
+    <dimen name="text_smallest">10sp</dimen>
+
+    <!--Separators-->
+    <dimen name="separator_larger">4dp</dimen>
+    <dimen name="separator_large">2dp</dimen>
+    <dimen name="separator">1dp</dimen>
+    <dimen name="separator_small">0.5dp</dimen>
+    <dimen name="separator_smaller">0.2dp</dimen>
+    <!--<dimen name="text_title_with_bold">20sp</dimen>-->
+    <!--<dimen name="text_title_calendar">18sp</dimen>-->
+    <!--<dimen name="text_subheading">16sp</dimen>-->
+    <!--<dimen name="text_body">14sp</dimen>-->
+    <!--<dimen name="text_caption">12sp</dimen>-->
+    <!--<dimen name="text_button">14sp</dimen>-->
+
+    <!--Corners-->
+    <dimen name="corner_largest">12dp</dimen>
+    <dimen name="corner_larger">10dp</dimen>
+    <dimen name="corner_large">8dp</dimen>
+    <dimen name="corner_small">4dp</dimen>
+    <dimen name="corner_card">2dp</dimen>
+    <dimen name="corner_default">2dp</dimen>
+    <dimen name="corner_zero">0dp</dimen>
+    <dimen name="corner_button_round">22dp</dimen>
+
+    <!--Elevation-->
+    <dimen name="elevation_zero">0dp</dimen>
+    <dimen name="elevation_min">2dp</dimen>
+    <dimen name="elevation">4dp</dimen>
+    <dimen name="elevation_max">8dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+    <dimen name="image_profile">76dp</dimen>
+</resources>
