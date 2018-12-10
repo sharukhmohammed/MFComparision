@@ -1,5 +1,6 @@
 package sharukh.piggy.mfcomparision.ui
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.Snackbar
@@ -42,13 +43,13 @@ class SearchActivity : AppCompatActivity() {
             }
 
             override fun onQueryTextChange(query: String?): Boolean {
-                //performSearch(query)
-                return false
+                performSearch(query)
+                return true
             }
         })
 
 
-        search_result_recycler.adapter = SearchResultAdapter(searchResults)
+        search_result_recycler.adapter = SearchResultAdapter(searchResults, this)
 
 
     }
@@ -91,13 +92,16 @@ class SearchActivity : AppCompatActivity() {
 
     /*Paints the views*/
     fun paintViews(search_results: ArrayList<SearchResult.SearchResultMF>) {
-        search_result_recycler.adapter = SearchResultAdapter(search_results)
+        search_result_recycler.adapter = SearchResultAdapter(search_results, this)
     }
 
 
     /*Inner Classes*/
 
-    inner class SearchResultAdapter(searchResults: ArrayList<SearchResult.SearchResultMF>) :
+    inner class SearchResultAdapter(
+        searchResults: ArrayList<SearchResult.SearchResultMF>,
+        val searchActivity: SearchActivity
+    ) :
         RecyclerView.Adapter<SearchResultAdapter.Holder>() {
 
         private var searchResults = ArrayList<SearchResult.SearchResultMF>()
@@ -128,21 +132,30 @@ class SearchActivity : AppCompatActivity() {
                 itemView.fyr.text = "%.2f%%".format(mf.return_5yr)
                 itemView.category.text = mf.category
                 itemView.risk.text = mf.riskometer
-                when{
+                when {
 
-                    mf.riskometer.contains("low") -> {
+                    mf.riskometer.toLowerCase().contains("high") -> {
+                        itemView.risk.setTextColor(resources.getColor(R.color.failure_light))
+                    }
+
+
+                    mf.riskometer.toLowerCase().contains("low") -> {
                         itemView.risk.setTextColor(resources.getColor(R.color.success_light))
                     }
 
-                    mf.riskometer.contains("moderate") -> {
+                    mf.riskometer.toLowerCase().contains("moderate") -> {
                         itemView.risk.setTextColor(resources.getColor(R.color.ongoing_light))
                     }
 
-                    mf.riskometer.contains("high") -> {
-                        itemView.risk.setTextColor(resources.getColor(R.color.failure_light))
-                    }
+
                 }
                 itemView.min_inv.text = "₹%.0f".format(mf.minimum_investment)
+                itemView.setOnClickListener {
+                    val someIntent = Intent()
+                    someIntent.putExtra("MF_ID", mf.details_id)
+                    searchActivity.setResult(909, someIntent)
+                    searchActivity.finish()
+                }
             }
         }
     }
