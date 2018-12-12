@@ -4,6 +4,7 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.Snackbar
+import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -99,6 +100,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun paintViews() {
 
+        actual_layout.visibility = View.VISIBLE
 
         firstMf?.let {
             first_title.text = it.details.name
