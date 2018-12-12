@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
         android:layout_marginStart="@dimen/space_base"
         android:layout_marginEnd="@dimen/space_base"
-        tools:context=".ui.MainActivity">
+        tools:context=".view.MainActivity">
 
     <LinearLayout
             android:orientation="horizontal"

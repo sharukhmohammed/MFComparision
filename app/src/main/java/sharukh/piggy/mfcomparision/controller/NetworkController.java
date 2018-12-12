@@ -1,11 +1,9 @@
-package sharukh.piggy.mfcomparision.network;
+package sharukh.piggy.mfcomparision.controller;
 
 import android.content.Context;
-import android.util.Log;
 import okhttp3.*;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
-import okio.Buffer;
 import retrofit2.Retrofit;
 import retrofit2.Retrofit.Builder;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -17,30 +15,30 @@ import java.util.concurrent.TimeUnit;
 /**
  * Developed by Sharukh Mohammed on 24 July 2018 at 17:00. Copyright © 2018 Wheelstreet All rights reserved.
  */
-public class RetrofitClient {
+public class NetworkController {
 
     private static final int SIZE_OF_CACHE = 10485760;
 
-    private final static String TAG = "RetrofitClient";
+    private final static String TAG = "NetworkController";
 
     private static HashMap<String, Object> mClients;
 
     private static Retrofit mRetrofit;
 
-    private static RetrofitClient mRetrofitClient;
+    private static NetworkController mRetrofitClient;
 
     static {
         mClients = new HashMap<>();
     }
 
-    private RetrofitClient() {
+    private NetworkController() {
     }
 
-    public static RetrofitClient getInstance() {
+    public static NetworkController getInstance() {
 
 
         if (mRetrofitClient == null) {
-            mRetrofitClient = new RetrofitClient();
+            mRetrofitClient = new NetworkController();
         }
 
         return mRetrofitClient;
@@ -52,7 +50,7 @@ public class RetrofitClient {
 
     public <T> T getClient(Class<T> tClass, final Context context, boolean handleErrorsInternally) {
 
-        final String TAG = "RetrofitClient";
+        final String TAG = "NetworkController";
 
         //Warns if context passed is not an activity context
         /*if (!(context instanceof BaseActivity)) {

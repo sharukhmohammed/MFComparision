@@ -1,4 +1,4 @@
-package sharukh.piggy.mfcomparision.ui
+package sharukh.piggy.mfcomparision.view
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
@@ -9,12 +9,11 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import sharukh.piggy.mfcomparision.R
-import sharukh.piggy.mfcomparision.data.MFDetails
-import sharukh.piggy.mfcomparision.extensions.Extensionz
-import sharukh.piggy.mfcomparision.network.Api
-import sharukh.piggy.mfcomparision.network.GenericResponse
-import sharukh.piggy.mfcomparision.network.RetrofitClient
-import java.security.cert.Extension
+import sharukh.piggy.mfcomparision.model.network.MFDetails
+import sharukh.piggy.mfcomparision.controller.Extras
+import sharukh.piggy.mfcomparision.model.network.Api
+import sharukh.piggy.mfcomparision.model.network.parents.GenericResponse
+import sharukh.piggy.mfcomparision.controller.NetworkController
 
 class MainActivity : AppCompatActivity() {
 
@@ -44,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         when (requestCode) {
             //SearchActivity for First MF
             1024 -> {
-                RetrofitClient.getInstance().getClient(Api::class.java, this)
+                NetworkController.getInstance().getClient(Api::class.java, this)
                     .getMFDetails(data?.getStringExtra("MF_ID").toString())
                     .enqueue(object : Callback<GenericResponse<MFDetails>> {
                         override fun onFailure(call: Call<GenericResponse<MFDetails>>, t: Throwable) {
@@ -69,7 +68,7 @@ class MainActivity : AppCompatActivity() {
 
             //SearchActivity for Second MF
             2048 -> {
-                RetrofitClient.getInstance().getClient(Api::class.java, this)
+                NetworkController.getInstance().getClient(Api::class.java, this)
                     .getMFDetails(data?.getStringExtra("MF_ID").toString())
                     .enqueue(object : Callback<GenericResponse<MFDetails>> {
                         override fun onFailure(call: Call<GenericResponse<MFDetails>>, t: Throwable) {
@@ -105,7 +104,7 @@ class MainActivity : AppCompatActivity() {
             first_nav.text = "₹ %.2f".format(it.nav)
             first_min_sub.text = "₹ %.2f".format(it.details.minimum_subscription)
             first_riskometer.text = it.details.riskometer
-            Extensionz.paintRisk(first_riskometer,it.details.riskometer,this)
+            Extras.paintRisk(first_riskometer,it.details.riskometer,this)
             first_return_yoy.text = "%.0f%%".format(it.details.yoy_return)
             first_return_3yr.text = "%.0f%%".format(it.details.return_3yr)
             first_return_5yr.text = "%.0f%%".format(it.details.return_5yr)
@@ -130,7 +129,7 @@ class MainActivity : AppCompatActivity() {
             second_nav.text = "₹ %.2f".format(it.nav)
             second_min_sub.text = "₹ %.2f".format(it.details.minimum_subscription)
             second_riskometer.text = it.details.riskometer
-            Extensionz.paintRisk(second_riskometer,it.details.riskometer,this)
+            Extras.paintRisk(second_riskometer,it.details.riskometer,this)
             second_return_yoy.text = "%.0f%%".format(it.details.yoy_return)
             second_return_3yr.text = "%.0f%%".format(it.details.return_3yr)
             second_return_5yr.text = "%.0f%%".format(it.details.return_5yr)
@@ -160,49 +159,49 @@ class MainActivity : AppCompatActivity() {
                 ).show()
             }
 
-            Extensionz.makeTextViewHigher(if (firstMf!!.nav > secondMf!!.nav) first_nav else second_nav, this)
-            Extensionz.makeTextViewHigher(
+            Extras.makeTextViewHigher(if (firstMf!!.nav > secondMf!!.nav) first_nav else second_nav, this)
+            Extras.makeTextViewHigher(
                 if (firstMf!!.details.rating > secondMf!!.details.rating) first_rating else second_rating,
                 this
             )
 
-            Extensionz.makeTextViewHigher(
+            Extras.makeTextViewHigher(
                 if (firstMf!!.details.minimum_subscription < secondMf!!.details.minimum_subscription) first_min_sub else second_min_sub,
                 this
             )
 
-            Extensionz.makeTextViewHigher(
+            Extras.makeTextViewHigher(
                 if (firstMf!!.details.minimum_addition_subscription < secondMf!!.details.minimum_addition_subscription) first_min_additional else second_min_additional,
                 this
             )
 
-            Extensionz.makeTextViewHigher(
+            Extras.makeTextViewHigher(
                 if (firstMf!!.details.minimum_balance_maintainence < secondMf!!.details.minimum_balance_maintainence) first_min_balance else second_min_balance,
                 this
             )
 
-            Extensionz.makeTextViewHigher(
+            Extras.makeTextViewHigher(
                 if (firstMf!!.details.minimum_sip_subscription < secondMf!!.details.minimum_sip_subscription) first_min_sip else second_min_sip,
                 this
             )
 
-            Extensionz.makeTextViewHigher(
+            Extras.makeTextViewHigher(
                 if (firstMf!!.details.exit_load < secondMf!!.details.exit_load) first_exit_load else second_exit_load,
                 this
             )
 
-            Extensionz.makeTextViewHigher(
+            Extras.makeTextViewHigher(
                 if (firstMf!!.details.yoy_return > secondMf!!.details.yoy_return) first_return_yoy else second_return_yoy,
                 this
             )
 
-            Extensionz.makeTextViewHigher(
+            Extras.makeTextViewHigher(
                 if (firstMf!!.details.return_3yr > secondMf!!.details.return_3yr) first_return_3yr else second_return_3yr,
                 this
             )
 
 
-            Extensionz.makeTextViewHigher(
+            Extras.makeTextViewHigher(
                 if (firstMf!!.details.return_5yr > secondMf!!.details.return_5yr) first_return_5yr else second_return_5yr,
                 this
             )

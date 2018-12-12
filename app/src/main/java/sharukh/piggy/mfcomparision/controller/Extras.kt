@@ -1,15 +1,14 @@
-package sharukh.piggy.mfcomparision.extensions
+package sharukh.piggy.mfcomparision.controller
 
 import android.content.Context
 import android.widget.TextView
 import sharukh.piggy.mfcomparision.R
 import android.text.Spannable
-import android.icu.lang.UProperty.INT_START
 import android.support.v4.content.ContextCompat
 import android.text.SpannableStringBuilder
 
 
-object Extensionz {
+object Extras {
 
     fun paintRisk(textView: TextView, risk: String, context: Context) {
 

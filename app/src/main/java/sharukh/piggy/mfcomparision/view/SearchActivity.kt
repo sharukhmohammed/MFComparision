@@ -1,4 +1,4 @@
-package sharukh.piggy.mfcomparision.ui
+package sharukh.piggy.mfcomparision.view
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
@@ -12,16 +12,15 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.activity_search.*
-import kotlinx.android.synthetic.main.search_item.*
 import kotlinx.android.synthetic.main.search_item.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import sharukh.piggy.mfcomparision.R
-import sharukh.piggy.mfcomparision.data.SearchResult
-import sharukh.piggy.mfcomparision.network.Api
-import sharukh.piggy.mfcomparision.network.GenericResponse
-import sharukh.piggy.mfcomparision.network.RetrofitClient
+import sharukh.piggy.mfcomparision.model.network.SearchResult
+import sharukh.piggy.mfcomparision.model.network.Api
+import sharukh.piggy.mfcomparision.model.network.parents.GenericResponse
+import sharukh.piggy.mfcomparision.controller.NetworkController
 
 class SearchActivity : AppCompatActivity() {
 
@@ -65,7 +64,7 @@ class SearchActivity : AppCompatActivity() {
             json.addProperty("rows", 7)
             json.addProperty("offset", 1)
 
-            RetrofitClient.getInstance()
+            NetworkController.getInstance()
                 .getClient(Api::class.java, this)
                 .performSearch(json)
                 .enqueue(object : Callback<GenericResponse<SearchResult>> {
