@@ -8,4 +8,25 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
+    <style name="LeftItem">
+        <item name="android:layout_marginEnd">@dimen/space_small</item>
+    </style>
+
+
+    <style name="RightItem">
+        <item name="android:layout_marginEnd">@dimen/space_small</item>
+    </style>
+
+    <style name="LeftText" parent="LeftItem">
+        <item name="android:background">@drawable/background_grey_left</item>
+        <item name="android:padding">@dimen/space_small</item>
+    </style>
+
+
+    <style name="RightText" parent="RightItem">
+        <item name="android:background">@drawable/background_grey_right</item>
+        <item name="android:padding">@dimen/space_small</item>
+    </style>
+
 </resources>

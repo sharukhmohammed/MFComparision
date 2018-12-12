@@ -10,7 +10,8 @@ import retrofit2.Callback
 import retrofit2.Response
 import sharukh.piggy.mfcomparision.R
 import sharukh.piggy.mfcomparision.model.network.MFDetails
-import sharukh.piggy.mfcomparision.controller.Extras
+import sharukh.piggy.mfcomparision.controller.ViewController
+import sharukh.piggy.mfcomparision.controller.MFComparison
 import sharukh.piggy.mfcomparision.model.network.Api
 import sharukh.piggy.mfcomparision.model.network.parents.GenericResponse
 import sharukh.piggy.mfcomparision.controller.NetworkController
@@ -97,61 +98,60 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun paintViews() {
+
+
         firstMf?.let {
             first_title.text = it.details.name
             first_catergory.text = it.plan_type
-            first_rating.text = "%.2f ★".format(it.details.rating)
-            first_nav.text = "₹ %.2f".format(it.nav)
-            first_min_sub.text = "₹ %.2f".format(it.details.minimum_subscription)
-            first_riskometer.text = it.details.riskometer
-            Extras.paintRisk(first_riskometer,it.details.riskometer,this)
-            first_return_yoy.text = "%.0f%%".format(it.details.yoy_return)
-            first_return_3yr.text = "%.0f%%".format(it.details.return_3yr)
-            first_return_5yr.text = "%.0f%%".format(it.details.return_5yr)
+            first_rating.text = ViewController.getRatingString(it, this)
+            first_nav.text = ViewController.getMoneyString(it.nav, this)
+            first_min_sub.text = ViewController.getMoneyString(it.details.minimum_subscription, this)
+            ViewController.paintRisk(first_riskometer, it, this)
+            first_return_yoy.text = ViewController.getPercentString(it.details.yoy_return, this)
+            first_return_3yr.text = ViewController.getPercentString(it.details.return_3yr, this)
+            first_return_5yr.text = ViewController.getPercentString(it.details.return_5yr, this)
             first_scheme_class.text = it.details.scheme_class
             first_scheme_type.text = it.details.scheme_type
             first_scheme_type.text = it.details.scheme_type
-            first_is_elss.text = if (it.details.is_elss) "Yes" else "No"
-            first_min_sip.text = "₹ %.2f".format(it.details.minimum_sip_subscription)
-            first_min_balance.text = "₹ %.2f".format(it.details.minimum_balance_maintainence)
-            first_min_additional.text = "₹ %.2f".format(it.details.minimum_addition_subscription)
+            first_is_elss.text = ViewController.getBoolString(it.details.is_elss)
+            first_min_sip.text = ViewController.getMoneyString(it.details.minimum_sip_subscription, this)
+            first_min_balance.text = ViewController.getMoneyString(it.details.minimum_balance_maintainence, this)
+            first_min_additional.text = ViewController.getMoneyString(it.details.minimum_addition_subscription, this)
             first_exit_load.text = it.details.exit_load_text
             first_objective.text = it.details.objective
             first_suitability.text = it.details.suitability
-            first_download_sid.text = if (it.details.sid_url.isBlank()) "Yes" else "No"
+            first_download_sid.text = ViewController.getBoolString(it.details.sid_url.isBlank())
         }
 
 
         secondMf?.let {
             second_title.text = it.details.name
             second_catergory.text = it.plan_type
-            second_rating.text = "%.2f  ★".format(it.details.rating)
-            second_nav.text = "₹ %.2f".format(it.nav)
-            second_min_sub.text = "₹ %.2f".format(it.details.minimum_subscription)
-            second_riskometer.text = it.details.riskometer
-            Extras.paintRisk(second_riskometer,it.details.riskometer,this)
-            second_return_yoy.text = "%.0f%%".format(it.details.yoy_return)
-            second_return_3yr.text = "%.0f%%".format(it.details.return_3yr)
-            second_return_5yr.text = "%.0f%%".format(it.details.return_5yr)
+            second_rating.text = ViewController.getRatingString(it, this)
+            second_nav.text = ViewController.getMoneyString(it.nav, this)
+            second_min_sub.text = ViewController.getMoneyString(it.details.minimum_subscription, this)
+            ViewController.paintRisk(second_riskometer, it, this)
+            second_return_yoy.text = ViewController.getPercentString(it.details.yoy_return, this)
+            second_return_3yr.text = ViewController.getPercentString(it.details.return_3yr, this)
+            second_return_5yr.text = ViewController.getPercentString(it.details.return_5yr, this)
             second_scheme_class.text = it.details.scheme_class
             second_scheme_type.text = it.details.scheme_type
             second_scheme_type.text = it.details.scheme_type
-            second_is_elss.text = if (it.details.is_elss) "Yes" else "No"
-            second_min_sip.text = "₹ %.2f".format(it.details.minimum_sip_subscription)
-            second_min_balance.text = "₹ %.2f".format(it.details.minimum_balance_maintainence)
-            second_min_additional.text = "₹ %.2f".format(it.details.minimum_addition_subscription)
+            second_is_elss.text = ViewController.getBoolString(it.details.is_elss)
+            second_min_sip.text = ViewController.getMoneyString(it.details.minimum_sip_subscription, this)
+            second_min_balance.text = ViewController.getMoneyString(it.details.minimum_balance_maintainence, this)
+            second_min_additional.text = ViewController.getMoneyString(it.details.minimum_addition_subscription, this)
             second_exit_load.text = it.details.exit_load_text
             second_objective.text = it.details.objective
             second_suitability.text = it.details.suitability
-            second_download_sid.text = if (it.details.sid_url.isBlank()) "Yes" else "No"
+            second_download_sid.text = ViewController.getBoolString(it.details.sid_url.isBlank())
         }
-
 
         //Start Comparision and Paint effectively
         if (firstMf != null && secondMf != null) {
 
 
-            if (!firstMf!!.plan_type.equals(secondMf!!.plan_type) || !firstMf!!.dividend_type.equals(secondMf!!.dividend_type)) {
+            if (!MFComparison.arePlanTypesSame(firstMf!!, secondMf!!)) {
                 Snackbar.make(
                     first_title,
                     "Different plan types might not be appropriate to compare",
@@ -159,53 +159,16 @@ class MainActivity : AppCompatActivity() {
                 ).show()
             }
 
-            Extras.makeTextViewHigher(if (firstMf!!.nav > secondMf!!.nav) first_nav else second_nav, this)
-            Extras.makeTextViewHigher(
-                if (firstMf!!.details.rating > secondMf!!.details.rating) first_rating else second_rating,
-                this
-            )
-
-            Extras.makeTextViewHigher(
-                if (firstMf!!.details.minimum_subscription < secondMf!!.details.minimum_subscription) first_min_sub else second_min_sub,
-                this
-            )
-
-            Extras.makeTextViewHigher(
-                if (firstMf!!.details.minimum_addition_subscription < secondMf!!.details.minimum_addition_subscription) first_min_additional else second_min_additional,
-                this
-            )
-
-            Extras.makeTextViewHigher(
-                if (firstMf!!.details.minimum_balance_maintainence < secondMf!!.details.minimum_balance_maintainence) first_min_balance else second_min_balance,
-                this
-            )
-
-            Extras.makeTextViewHigher(
-                if (firstMf!!.details.minimum_sip_subscription < secondMf!!.details.minimum_sip_subscription) first_min_sip else second_min_sip,
-                this
-            )
-
-            Extras.makeTextViewHigher(
-                if (firstMf!!.details.exit_load < secondMf!!.details.exit_load) first_exit_load else second_exit_load,
-                this
-            )
-
-            Extras.makeTextViewHigher(
-                if (firstMf!!.details.yoy_return > secondMf!!.details.yoy_return) first_return_yoy else second_return_yoy,
-                this
-            )
-
-            Extras.makeTextViewHigher(
-                if (firstMf!!.details.return_3yr > secondMf!!.details.return_3yr) first_return_3yr else second_return_3yr,
-                this
-            )
-
-
-            Extras.makeTextViewHigher(
-                if (firstMf!!.details.return_5yr > secondMf!!.details.return_5yr) first_return_5yr else second_return_5yr,
-                this
-            )
-
+            ViewController.makeTextViewHigher(MFComparison.ofNav(firstMf!!, secondMf!!), this)
+            ViewController.makeTextViewHigher(MFComparison.ofRating(firstMf!!, secondMf!!), this)
+            ViewController.makeTextViewHigher(MFComparison.ofMinSubscription(firstMf!!, secondMf!!), this)
+            ViewController.makeTextViewHigher(MFComparison.ofAdditionalSubscription(firstMf!!, secondMf!!), this)
+            ViewController.makeTextViewHigher(MFComparison.ofMinBalance(firstMf!!, secondMf!!), this)
+            ViewController.makeTextViewHigher(MFComparison.ofMinSip(firstMf!!, secondMf!!), this)
+            ViewController.makeTextViewHigher(MFComparison.ofExitLoad(firstMf!!, secondMf!!), this)
+            ViewController.makeTextViewHigher(MFComparison.ofReturnYoy(firstMf!!, secondMf!!), this)
+            ViewController.makeTextViewHigher(MFComparison.ofReturn3Yr(firstMf!!, secondMf!!), this)
+            ViewController.makeTextViewHigher(MFComparison.ofReturn5Yr(firstMf!!, secondMf!!), this)
 
         }
     }
